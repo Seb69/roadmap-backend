@@ -1,0 +1,37 @@
+OAUTH WORKFLOW:
+
+> GET
+http://localhost:8080/api/users
+> RETURN
+<oauth>
+<error_description>
+Full authentication is required to access this resource
+</error_description>
+<error>unauthorized</error>
+</oauth>
+
+> GET
+http://localhost:8080/oauth/authorize?response_type=code&client_id=client&redirect_uri=/api/users
+> RETURN
+http://localhost:8080/api/users?code=6hpN1i
+
+> POST
+curl client:secret@localhost:8080/oauth/token -d grant_type=authorization_code -d client_id=client -d redirect_uri=/api/users -d code=6hpN1i
+> RETURN
+{"access_token":"fb278bc2-45d3-4695-bcb8-e88f564fbf2f","token_type":"bearer","refresh_token":"65e730e3-712e-4c58-b362-8dc2ee3c6a3d","expires_in":43199,"scope":"read"}
+
+> GET
+http://localhost:8080/me?access_token=fb278bc2-45d3-4695-bcb8-e88f564fbf2f
+>RETURN
+list users json
+
+> POST
+http://localhost:8080/oauth/token?response_type=password&client_id=client&username=yo@admin.com&password=admin
+> RETURN
+{
+  "access_token": "d315d17f-799b-476b-a2f0-38a711ad3294",
+  "token_type": "bearer",
+  "refresh_token": "2e16e67f-50b8-4cf1-911d-0f2a97dce2fd",
+  "expires_in": 38005,
+  "scope": "read"
+}

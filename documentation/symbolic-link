@@ -1,0 +1,5 @@
+cd j2ee-roadmapp/WebContent
+ln -s ../../angular-roadmapp/app/bower_components bower_components
+ln -s ../../angular-roadmapp/app/dashboard dashboard
+ln -s ../../angular-roadmapp/app/login login
+ln -s ../../angular-roadmapp/app/components components
